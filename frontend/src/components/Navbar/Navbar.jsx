@@ -70,7 +70,7 @@ const Navbar = () => {
                 <div className="flex flex-col md:flex-row md:gap-4 mt-4 md:mt-0">
                     <Link
                         to="/LogIn"
-                        className="px-4 py-2 border border-blue-500 hover:bg-white hover:text-zinc-800 transition-all duration-300 mb-5"
+                        className="px-4 py-2 border border-blue-500 hover:bg-white hover:text-zinc-800 transition-all duration-300"
                         onClick={() => setIsMobileMenuOpen(false)}
                     >
                         LogIn

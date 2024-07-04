@@ -1,9 +1,9 @@
 const express = require("express");
 const app = express();
-app.use(express.json());
+
 require("dotenv").config();
 require("./connection/connection");
-
+const cors = require("cors");
 const user= require("./routes/user");
 const Books = require("./routes/book");
 const Favourite= require("./routes/favourites");
@@ -13,6 +13,8 @@ const Order= require("./routes/order");
 //     res.send("hello from backend side");
 // });
 //routes
+app.use(cors());
+app.use(express.json());
 
 app.use("/api/v1", user);
 app.use("/api/v1", Books);
