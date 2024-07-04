@@ -9,6 +9,7 @@ import SignUp from "./pages/SignUp";
 import AllBooks from "./pages/AllBooks";
 import Cart from "./pages/Cart";
 import Profile from "./pages/Profile";
+import ViewBookDetails from "./components/ViewBookDetails/ViewBookDetails";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route  path="/SignUp" element={<SignUp />}/>
         <Route  path="/cart" element={<Cart />}/>
         <Route  path="/profile" element={<Profile />}/>
+        <Route path="/view-book-details/:id" element={<ViewBookDetails />}/>
         </Routes> 
         <Footer />
         
