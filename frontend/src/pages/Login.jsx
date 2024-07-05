@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { authActions } from "../store/auth";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -15,9 +20,20 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:4000/api/v1/sign-in", formData);
-      console.log("Login successful:", response.data);
-      // Redirect or show success message after successful login
+      if (formData.username === "" || formData.password  === "") {
+        alert("All fields are required");
+      }
+      else{
+        const response = await axios.post("http://localhost:4000/api/v1/sign-in", formData);
+        dispatch(authActions.login());
+        dispatch(authActions.changeRole(response.data.role));
+        localStorage.setItem("id", response.data.id);
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("role", response.data.role);
+        console.log("Login successful:", response.data);
+        // Redirect or show success message after successful login
+        navigate("/profile");
+        }
     } catch (error) {
       console.error("Error logging in:", error);
       // Handle error (show error message, etc.)
@@ -25,7 +41,7 @@ const Login = () => {
   };
 
   return (
-    <div className="h-auto bg-zinc-900 px-12 py-8 flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center bg-zinc-900">
       <div className="bg-zinc-800 rounded-lg px-8 py-5 w-full md:w-3/6 lg:w-2/6">
         <p className="text-zinc-200 text-xl mb-4">Log In</p>
         <form onSubmit={handleSubmit}>
@@ -41,7 +57,7 @@ const Login = () => {
                 value={formData.username}
                 onChange={handleChange}
                 className="w-full mt-2 bg-zinc-900 text-zinc-100 p-2 outline-none"
-                placeholder="username"
+                placeholder="Username"
                 required
               />
             </div>
@@ -56,7 +72,7 @@ const Login = () => {
                 value={formData.password}
                 onChange={handleChange}
                 className="w-full mt-2 bg-zinc-900 text-zinc-100 p-2 outline-none"
-                placeholder="password"
+                placeholder="Password"
                 required
               />
             </div>

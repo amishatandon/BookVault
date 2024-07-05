@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -23,6 +24,11 @@ const Navbar = () => {
         },
     ];
 
+    const isLoggedIn = useSelector((state)=>state.auth.isLoggedIn);
+    
+    if( isLoggedIn==false){
+        links.splice(2,2)
+    }
     return (
         <div className="flex bg-zinc-800 text-white px-8 py-4 items-center justify-between">
             <div className="flex items-center">
@@ -57,17 +63,24 @@ const Navbar = () => {
             <div className={`md:flex items-center gap-4 ${isMobileMenuOpen ? 'block' : 'hidden'} md:block`}>
                 <div className="flex flex-col md:flex-row md:gap-4">
                     {links.map((items, i) => (
-                        <Link
+                        <div className="flex items-center">{items.title=== "Profile" ? <Link
+                            to={items.link}
+                            className="px-4 py-2 border border-blue-500 hover:bg-white hover:text-zinc-800 transition-all duration-300"
+                            key={i}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                            {items.title}
+                        </Link>:<Link
                             to={items.link}
                             className="hover:text-blue-500 transition-all duration-300"
                             key={i}
                             onClick={() => setIsMobileMenuOpen(false)}
                         >
                             {items.title}
-                        </Link>
+                        </Link>}</div>
                     ))}
                 </div>
-                <div className="flex flex-col md:flex-row md:gap-4 mt-4 md:mt-0">
+                {isLoggedIn==false && <div className="flex flex-col md:flex-row md:gap-4 mt-4 md:mt-0">
                     <Link
                         to="/LogIn"
                         className="px-4 py-2 border border-blue-500 hover:bg-white hover:text-zinc-800 transition-all duration-300"
@@ -82,7 +95,7 @@ const Navbar = () => {
                     >
                         SignUp
                     </Link>
-                </div>
+                </div>}
             </div>
         </div>
     );

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const SignUp = () => {
@@ -10,16 +10,26 @@ const SignUp = () => {
     address: "",
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     try {
-      const response = await axios.post("http://localhost:4000/api/v1/sign-up", formData);
+      if (formData.username === "" || formData.email === "" || formData.password  === "" || formData.address === "") {
+        alert("All fields are required");
+      }
+      else{
+        const response = await axios.post("http://localhost:4000/api/v1/sign-up", formData);
       console.log("Signup successful:", response.data);
+      navigate("/LogIn");
       // Redirect or show success message after successful signup
+      }
+      
     } catch (error) {
       console.error("Error signing up:", error);
       // Handle error (show error message, etc.)
