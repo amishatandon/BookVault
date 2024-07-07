@@ -6,8 +6,7 @@ import axios from "axios";
 import Loader from "../components/Loader/Loader";
 
 const Profile = () => {
-  // const isLoggedIn = useSelector();
-  const [profile, setProfile] = useState(null); // Use null to differentiate between loading state and empty state
+  const [profile, setProfile] = useState(null);
   const headers = {
     id: localStorage.getItem("id"),
     authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -28,13 +27,16 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="bg-zinc-900 px-2 md:px-12 flex flex-col md:flex-row h-screen py-8 gap-4 text-white">
-      {!profile && <div
-      className="w-full h-[100%] flex items-center justify-center"><Loader /></div>} {/* Show loader while fetching */}
+    <div className="bg-zinc-900 min-h-screen px-2 md:px-12 flex flex-col md:flex-row py-8 gap-4 text-white">
+      {!profile && (
+        <div className="w-full flex items-center justify-center">
+          <Loader />
+        </div>
+      )}
       {profile && (
         <>
           <div className="w-full md:w-1/6">
-            <Sidebar profile={profile} /> {/* Pass profile data to Sidebar component */}
+            <Sidebar profile={profile} />
           </div>
           <div className="w-full md:w-5/6">
             <Outlet />
