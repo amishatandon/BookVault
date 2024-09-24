@@ -15,14 +15,10 @@ API Integration: Axios for HTTP requests
 
 ## Installation
 # Clone the repository:
-bash
-Copy code
 git clone https://github.com/your-username/bookvault-app.git
 cd bookvault-app
 
 # Install dependencies:
-bash
-Copy code
 npm install
 
 # Set up environment variables:
@@ -30,6 +26,8 @@ Create a .env file in the root directory.
 Define environment variables like REACT_APP_API_URL for frontend and MONGODB_URI for backend.
 
 # Run the app:
-bash
-Copy code
 npm start
+
+<img width="386" alt="b1" src="https://github.com/user-attachments/assets/8edf7856-efbc-443c-8cfc-5421bdab9dd6">
+
+<img width="411" alt="b2" src="https://github.com/user-attachments/assets/eb61f8ae-44d4-48f1-8d31-1b1787424c63">
